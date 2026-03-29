@@ -12,7 +12,7 @@ At the start of this project there is only going to be one user that is the "def
 
 At the start I will focus on making the "Defaul User" pages that are at the bottom and later add the admin pages as seen in the photo below.
 
-![](./kuvat/kayttoliittyma-hahmotelma.png)
+![](../kuvat/kayttoliittyma-hahmotelma.png)
 
 StartingPage -> Login/SignUp/About -> MainPage -> 3 options 1.(About) 2.(My Entries) 3.(Daily prompt)
 
