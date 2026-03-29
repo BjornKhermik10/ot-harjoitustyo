@@ -1,49 +1,59 @@
-# Vaatimusmäärittely
+# Dear Diary - Requiriments Specification / Vaatimusmäärittely
 
-## Sovelluksen tarkoitus
+## What the app is for
 
-Sovelluksen avulla käyttäjien on mahdollista pitää kirjaa tekemättömistään töistä eli _todoista_. Sovellusta on mahdollista käyttää useamman rekisteröityneen käyttäjän, joilla kaikilla on oma yksilöllinen tehtävälistansa.
+The "Dear Diary" app is meant to work as a digital diary application. The app enables users to create an account, Write into your daily diary with the help/inspiration of a daily prompt to guide your thought. You can then explore your earlier diary entries. The app has an admin account that can change the daily prompt, controll accounts and even delete anyones entry if needed.
 
-## Käyttäjät
+## Users
 
-Alkuvaiheessa sovelluksella on ainoastaan yksi käyttäjärooli eli _normaali käyttäjä_. Myöhemmin sovellukseen saatetaan lisätä suuremmilla oikeuksilla varustettu _pääkäyttäjä_.
+At the start of this project there is only going to be one user that is the "default/customer" user. The "Default User" can answer the daily prompt and view his earlier entries. Later on I intend to add an admin account with speacial pages and functionality to change data within the app.
 
-## Käyttöliittymäluonnos
+## UserInterface
 
-Sovellus koostuu kolmesta eri näkymästä
+At the start I will focus on making the "Defaul User" pages that are at the bottom and later add the admin pages as seen in the photo below.
 
-![](./kuvat/kayttoliittyma-hahmotelma.png)
+![](/home/bjorn/ot-harjoitustyo/dokumentaatio/kuvat/kayttoliittyma-hahmotelma.png)
 
-Sovellus aukeaa kirjautumisnäkymään, josta on mahdollista siirtyä uuden käyttäjän luomisnäkymään tai onnistuneen kirjautumisen yhteydessä kirjaantuneen käyttäjän tehtävälistaan.
+StartingPage -> Login/SignUp/About -> MainPage -> 3 options 1.(About) 2.(My Entries) 3.(Daily prompt)
 
-## Perusversion tarjoama toiminnallisuus
+## Starting (MVP) Functionality
 
-### Ennen kirjautumista
+### Before Log-in
 
-- Käyttäjä voi luoda järjestelmään käyttäjätunnuksen
-  - Käyttäjätunnuksen täytyy olla uniikki ja pituudeltaan vähintään 3 merkkiä
-- Käyttäjä voi kirjautua järjestelmään
-  - Kirjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus ja salasana kirjautumislomakkeelle
-  - Jos käyttäjää ei olemassa, tai salasana ei täsmää, ilmoittaa järjestelmä tästä
+- User can create an account
 
-### Kirjautumisen jälkeen
+- User can create an account
+  - The account Username must be unique
+  - The Sign up phase requires to fill out all mandatory fields
+- User can log in
+  - The log in goes through if the Username and Password are correct
+  - If the account doesn't exsist of the password is wrong the app will have a notification
 
-- Käyttäjä näkee omat tekemättömät työt eli _todot_
-- Käyttäjä voi luoda uuden todon
-  - Luotu todo näkyy ainoastaan sen luoneelle käyttäjälle
-- Käyttäjä voi merkitä todon tehdyksi, jolloin todo häviää listalta
-- Käyttäjä voi kirjautua ulos järjestelmästä
+### After Log-in
 
-## Jatkokehitysideoita
+- The User is brought to the MainPage
+- The User can go to the about page.
+  - View more information about the app.
+- The User can go to the Daily prompt page
+  - Go back to the Main page.
+  - Fill/type out the daily prompt.
+  - Preview it before publishing it. (Add a title and a date MANDATORY)
+  - Can go back to edit the entry before publishing.
+- The User can go to My Entries page
+  - To view all his previous entries in a list view
+  - Go back to the Mainpage
 
-Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seuraavilla toiminnallisuuksilla:
+## Information Storage
 
-- Tehdyksi merkittyjen todojen tarkastelu
-- Tehdyksi merkittyjen todojen merkkaaminen tekemättömiksi
-- Todon tietojen editointi
-- Todojen järjestely tärkeysjärjestykseen
-- Todojen määrittely muille käyttäjille
-- Käyttäjätiimit, jotka näkevät kaikki yhteiset todot
-- Mahdollisuus useampaan erilliseen todo-listaan
-- Lisätään todoon kenttä, johon on mahdollista merkitä tarkempia todoon liittyviä tietoja
-- Käyttäjätunnuksen (ja siihen liittyvien todojen) poisto
+- The User information will be stored in a JSON-file.
+- Every User gets their own JSON-file for information storage.
+- The JSON-files are created automatically for the user and are stored after the app is closed.
+
+## Future Development ideas
+
+- Admin functionality
+- Mood meter to track mood when typing
+  - ability to view moody graph
+- Free typing mode without daily prompt
+- Publish public poems or essays
+  - That other Users can view
