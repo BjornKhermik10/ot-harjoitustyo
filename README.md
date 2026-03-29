@@ -4,4 +4,4 @@ The "Dear Diary" app is meant to work as a digital diary application. The app en
 
 ## Requiriments Specification / Vaatimusmäärittely
 
-[Requiriments Specification / Vaatimusmäärittely] (dokumentaatio/misc/vaatimusmäärittely.md)
+[Requiriments Specification / Vaatimusmäärittely] (https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/vaatimusmaarittely.md)
