@@ -1,5 +1,8 @@
+"""This file is responsible for managing user-related operations."""
+
 class UserService:
     def __init__(self):
+        """Initializes the user service with an empty list of users."""
         self._users = []
 
     def register(self, username: str, password: str) -> bool:
