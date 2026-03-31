@@ -1,5 +1,4 @@
 # Työaikakirjanpito
-
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
 |  13.3  |  5   | Laskarit 1 | 
@@ -15,4 +14,4 @@
 |       |     | | 
 |       |     | | 
 |       |     | | 
-| yht   |     | | 
+| yht   |     | |
