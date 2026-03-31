@@ -1,5 +1,5 @@
-# Työaikakirjanpito
-| päivä | aika | mitä tein  |
+# Työaikakirjanpito / WorkedHours
+| date | time | what I did  |
 | :----:|:-----| :-----|
 |       |     |  | 
 |  2.43 |  1  | Brainstorming Ideas | 
