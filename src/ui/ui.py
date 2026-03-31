@@ -27,9 +27,10 @@ class UI:
     def _show_main_view(self):
         """Shows the main view with options to login, sign up, or view about information."""
         self._clear_view()
-
+        # generoitu koodi alkaa, sain siis ton _view_padx ja pady idean tekoälyltä
         self._main_view = Frame(self._root, padx=self._view_padx, pady=self._view_pady)
         self._main_view.pack(fill="both", expand=True)
+        # generoitu koodi loppuu
 
         title = Label(self._main_view, text="DEAR DIARY", font=("Arial", 38, "bold"))
         title.pack(pady=(0, 48))
@@ -37,9 +38,10 @@ class UI:
         logo_path = Path(__file__).parent / "assets" / "logo.png"
         if self.logo is None:
             self.logo = PhotoImage(file=str(logo_path))
-
+        # generoitu koodi alkaa
         logo_label = Label(self._main_view, image=self.logo)
         logo_label.pack(pady=(0, 24))
+        # generoitu koodi loppuu
 
         login_button = Button(
             self._main_view,
@@ -101,7 +103,7 @@ class UI:
 
             if self._user_service.register(username, password):
                 messagebox.showinfo("Sign up", "Account created successfully.")
-                self._open_login()
+                self._show_main_view()
             else:
                 error_label.config(text="Username already exists.")
 
@@ -196,15 +198,6 @@ class UI:
             justify="center",
         )
         subtitle.pack(pady=(0, 24))
-
-        continue_button = Button(
-            self._main_view,
-            text="Continue",
-            font=("Arial", 16),
-            width=20,
-            command=self._show_main_view,
-        )
-        continue_button.pack(pady=6)
 
     def _open_about(self):
         """Shows information about the application."""

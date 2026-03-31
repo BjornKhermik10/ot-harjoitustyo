@@ -3,10 +3,8 @@ from sys import platform
 
 @task
 def coverage(ctx):
-    ctx.run("coverage run --branch -m pytest", pty=True)
+    ctx.run("coverage run -m pytest src/tests", pty=True)
 
 @task(coverage)
 def coverage_report(ctx):
-    ctx.run("coverage html", pty=True)
-    if platform != "win32":
-        call(("xdg-open"), "htmlcov/index.html")
+    ctx.run("coverage report -m", pty=True)
