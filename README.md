@@ -7,3 +7,44 @@ The "Dear Diary" app is meant to work as a digital diary application. The app en
 [Requiriments Specification / Vaatimusmäärittely](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/vaatimusmaarittely.md)
 
 [WorkedHours Tracker / Työaikakirjanpito](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/tyoaikakirjanpito.md)
+
+[Changelog](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/changelog.md)
+
+[kayttoohje](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/english_instructions.md)
+
+[Arkkitehtuuri](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/arkkitehtuuri.md)
+
+[Testaus](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/testaus.md)
+
+
+## User Guide
+
+## Starting the Program
+
+Before starting the program, install the dependencies with the following command:
+
+```
+poetry install
+```
+After that, perform the initialization procedures with the command:
+
+```
+poetry run invoke build
+```
+Now the program can be started with the command:
+
+```
+poetry run invoke start
+```
+
+## Logging In
+
+The application opens to a home view where you can choose between the "create user" view or the login view. 
+
+You can log in by entering an existing username into the input field and clicking the "Login" button.
+
+## Creating a New User
+
+From the login view, you can navigate to the "create new user" view by clicking the "Sign up" button.
+
+A new user is created by entering the required details into the input fields and clicking the "Sign up" button. If the user creation is successful, you will be redirected to the home view.
