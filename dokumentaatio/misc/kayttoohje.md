@@ -20,6 +20,14 @@ Nyt ohjelman voi käynnistää komennolla:
 poetry run invoke start
 ```
 
+Coverage-raportin saa luotua komennolla:
+
+```bash
+poetry run invoke coverage-report
+```
+
+WSL-ymparistossa raportti avataan Windowsin selaimeen explorer.exe:n kautta.
+
 ## Kirjautuminen
 
 Sovellus käynnistyy aloitusnäkymä josta voit valita luokäyttäjänäkymän tai kirjautumisnäkymän:

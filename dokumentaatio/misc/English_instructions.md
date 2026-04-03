@@ -18,6 +18,14 @@ Now the program can be started with the command:
 poetry run invoke start
 ```
 
+To generate a coverage report, use:
+
+```
+poetry run invoke coverage-report
+```
+
+In WSL, the task opens the report with Windows browser integration (explorer.exe).
+
 ## Logging In
 
 The application opens to a home view where you can choose between the "create user" view or the login view. 

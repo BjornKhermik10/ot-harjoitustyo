@@ -1,4 +1,5 @@
 from invoke import task
+from shutil import which
 from sys import platform
 
 
@@ -25,6 +26,8 @@ def coverage_report(ctx):
         ctx.run("start htmlcov/index.html", pty=True, warn=True)
     elif platform == "darwin":
         ctx.run("open htmlcov/index.html", pty=True, warn=True)
-    else:
+    elif which("explorer.exe") is not None:
+        ctx.run('explorer.exe "$(wslpath -w htmlcov/index.html)"', pty=True, warn=True)
+    elif which("xdg-open") is not None:
         ctx.run("xdg-open htmlcov/index.html", pty=True, warn=True)
     # tekoälyltä saatu idea loppuu

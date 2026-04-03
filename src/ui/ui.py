@@ -35,10 +35,10 @@ class UI:
         title = Label(self._main_view, text="DEAR DIARY", font=("Arial", 38, "bold"))
         title.pack(pady=(0, 48))
 
+        # generoitu koodi alkaa, sain ton logo toteutus-idean tekoälyltä
         logo_path = Path(__file__).parent / "assets" / "logo.png"
         if self.logo is None:
             self.logo = PhotoImage(file=str(logo_path))
-        # generoitu koodi alkaa
         logo_label = Label(self._main_view, image=self.logo)
         logo_label.pack(pady=(0, 24))
         # generoitu koodi loppuu
