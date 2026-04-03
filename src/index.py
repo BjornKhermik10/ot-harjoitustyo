@@ -1,6 +1,7 @@
 from tkinter import Tk
 from ui.ui import UI
 from services.user_service import UserService
+import customtkinter as ctk
 
 
 def main():

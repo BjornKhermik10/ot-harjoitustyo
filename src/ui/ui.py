@@ -1,8 +1,8 @@
 """This file is responsible for the main user interface and what happens when you click a button."""
 
 from pathlib import Path
-from tkinter import Frame, Label, Button, Entry, PhotoImage, messagebox
-
+from tkinter import Frame, Label, Entry, PhotoImage, messagebox
+import customtkinter as ctk
 
 class UI:
     def __init__(self, root, user_service):
@@ -24,51 +24,72 @@ class UI:
         """Clears the current view by destroying the main view frame."""
         if self._main_view:
             self._main_view.destroy()
-
+    # generoitu koodi alkaa, sain ton _create_centered_group idean tekoälyltä
+    def _create_centered_group(self):
+        """Creates a centered container for grouping page widgets."""
+        content = Frame(self._main_view, bg="#FEFBE7")
+        content.place(relx=0.5, rely=0.5, anchor="center")
+        return content
+    # generoitu koodi loppuu
     def _show_main_view(self):
         """Shows the main view with options to login, sign up, or view about information."""
         self._clear_view()
         # generoitu koodi alkaa, sain siis ton _view_padx ja pady idean tekoälyltä
         self._main_view = Frame(
-            self._root, padx=self._view_padx, pady=self._view_pady)
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
         self._main_view.pack(fill="both", expand=True)
         # generoitu koodi loppuu
 
-        title = Label(self._main_view, text="DEAR DIARY",
-                      font=("Arial", 38, "bold"))
+        content = self._create_centered_group()
+
+        title = ctk.CTkLabel(content, text="DEAR DIARY",
+                     font=("Arial", 38, "bold"),
+                     text_color="#0F0099")
         title.pack(pady=(0, 48))
 
         # generoitu koodi alkaa, sain ton logo toteutus-idean tekoälyltä
         logo_path = Path(__file__).parent / "assets" / "logo.png"
         if self.logo is None:
-            self.logo = PhotoImage(file=str(logo_path))
-        logo_label = Label(self._main_view, image=self.logo)
+            self.logo = PhotoImage(master=self._root, file=str(logo_path))
+        logo_label = Label(content, image=self.logo, bg="#FEFBE7", highlightthickness=0)
         logo_label.pack(pady=(0, 24))
         # generoitu koodi loppuu
 
-        login_button = Button(
-            self._main_view,
-            text="Login",
-            font=("Arial", 20),
-            width=20,
+        login_button = ctk.CTkButton(
+            content,
+            text="LOGIN",
+            text_color="#FFFFFF",
+            corner_radius=8,    
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 20, "bold"),
+            width=220,
             command=self._open_login,
         )
         login_button.pack(pady=6)
 
-        signup_button = Button(
-            self._main_view,
-            text="Sign up",
-            font=("Arial", 20),
-            width=20,
+        signup_button = ctk.CTkButton(
+            content,
+            text="SIGN UP",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 20, "bold"),
+            width=220,
             command=self._open_signup,
         )
         signup_button.pack(pady=6)
 
-        about_button = Button(
-            self._main_view,
-            text="About",
-            font=("Arial", 20),
-            width=20,
+        about_button = ctk.CTkButton(
+            content,
+            text="ABOUT",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 20, "bold"),
+            width=220,
             command=self._open_about,
         )
         about_button.pack(pady=6)
@@ -78,28 +99,42 @@ class UI:
         self._clear_view()
 
         self._main_view = Frame(
-            self._root, padx=self._view_padx, pady=self._view_pady)
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
         self._main_view.pack(fill="both", expand=True)
 
-        title = Label(self._main_view, text="SIGN UP",
-                      font=("Arial", 40, "bold"))
+        content = self._create_centered_group()
+
+        title = ctk.CTkLabel(
+            content,
+            text="SIGN UP",
+            font=("Arial", 40, "bold"),
+            text_color="#0F0099",
+            fg_color="transparent",
+            )
         title.pack(pady=(0, 36))
 
+        form_frame = Frame(content, bg="#FEFBE7")
+        form_frame.pack(pady=(0, 24))
+
+        username_row = Frame(form_frame, bg="#FEFBE7")
+        username_row.pack(pady=(0, 12))
         username_label = Label(
-            self._main_view, text="Username", font=("Arial", 16))
-        username_label.pack(anchor="w")
-        username_entry = Entry(self._main_view, font=("Arial", 16), width=24)
-        username_entry.pack(pady=(0, 18))
+            username_row, text="Username", font=("Arial", 16), bg="#FEFBE7")
+        username_label.pack(side="left")
+        username_entry = Entry(username_row, font=("Arial", 16), width=24)
+        username_entry.pack(side="left", padx=(12, 0))
 
+        password_row = Frame(form_frame, bg="#FEFBE7")
+        password_row.pack()
         password_label = Label(
-            self._main_view, text="Password", font=("Arial", 16))
-        password_label.pack(anchor="w")
-        password_entry = Entry(self._main_view, font=(
+            password_row, text="Password", font=("Arial", 16), bg="#FEFBE7")
+        password_label.pack(side="left")
+        password_entry = Entry(password_row, font=(
             "Arial", 16), width=24, show="*")
-        password_entry.pack(pady=(0, 24))
+        password_entry.pack(side="left", padx=(12, 0))
 
-        error_label = Label(self._main_view, text="",
-                            fg="red", font=("Arial", 12))
+        error_label = Label(content, text="",
+                            fg="red", font=("Arial", 12), bg="#FEFBE7")
         error_label.pack(pady=(0, 10))
 
         def handle_signup():
@@ -116,20 +151,28 @@ class UI:
             else:
                 error_label.config(text="Username already exists.")
 
-        signup_button = Button(
-            self._main_view,
-            text="Create account",
-            font=("Arial", 16),
-            width=20,
+        signup_button = ctk.CTkButton(
+            content,
+            text="CREATE ACCOUNT",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 16, "bold"),
+            width=220,
             command=handle_signup,
         )
         signup_button.pack(pady=6)
 
-        back_button = Button(
-            self._main_view,
-            text="Back",
-            font=("Arial", 16),
-            width=20,
+        back_button = ctk.CTkButton(
+            content,
+            text="BACK",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 16, "bold"),
+            width=220,
             command=self._show_main_view,
         )
         back_button.pack(pady=6)
@@ -139,28 +182,42 @@ class UI:
         self._clear_view()
 
         self._main_view = Frame(
-            self._root, padx=self._view_padx, pady=self._view_pady)
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
         self._main_view.pack(fill="both", expand=True)
 
-        title = Label(self._main_view, text="LOGIN",
-                      font=("Arial", 40, "bold"))
+        content = self._create_centered_group()
+
+        title = ctk.CTkLabel(
+            content,
+            text="LOGIN",
+            font=("Arial", 40, "bold"),
+            text_color="#0F0099",
+            fg_color="transparent",
+            )
         title.pack(pady=(0, 36))
 
+        form_frame = Frame(content, bg="#FEFBE7")
+        form_frame.pack(pady=(0, 24))
+
+        username_row = Frame(form_frame, bg="#FEFBE7")
+        username_row.pack(pady=(0, 12))
         username_label = Label(
-            self._main_view, text="Username", font=("Arial", 16))
-        username_label.pack(anchor="w")
-        username_entry = Entry(self._main_view, font=("Arial", 16), width=24)
-        username_entry.pack(pady=(0, 18))
+            username_row, text="Username", font=("Arial", 16), bg="#FEFBE7")
+        username_label.pack(side="left")
+        username_entry = Entry(username_row, font=("Arial", 16), width=24)
+        username_entry.pack(side="left", padx=(12, 0))
 
+        password_row = Frame(form_frame, bg="#FEFBE7")
+        password_row.pack()
         password_label = Label(
-            self._main_view, text="Password", font=("Arial", 16))
-        password_label.pack(anchor="w")
-        password_entry = Entry(self._main_view, font=(
+            password_row, text="Password", font=("Arial", 16), bg="#FEFBE7")
+        password_label.pack(side="left")
+        password_entry = Entry(password_row, font=(
             "Arial", 16), width=24, show="*")
-        password_entry.pack(pady=(0, 24))
+        password_entry.pack(side="left", padx=(12, 0))
 
-        error_label = Label(self._main_view, text="",
-                            fg="red", font=("Arial", 12))
+        error_label = Label(content, text="",
+                            fg="red", font=("Arial", 12), bg="#FEFBE7")
         error_label.pack(pady=(0, 10))
 
         def handle_login():
@@ -177,20 +234,28 @@ class UI:
             else:
                 error_label.config(text="Invalid username or password.")
 
-        login_button = Button(
-            self._main_view,
-            text="Login",
-            font=("Arial", 16),
-            width=20,
+        login_button = ctk.CTkButton(
+            content,
+            text="LOGIN",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 16, "bold"),
+            width=220,
             command=handle_login,
         )
         login_button.pack(pady=6)
 
-        back_button = Button(
-            self._main_view,
-            text="Back",
-            font=("Arial", 16),
-            width=20,
+        back_button = ctk.CTkButton(
+            content,
+            text="BACK",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 16, "bold"),
+            width=220,
             command=self._show_main_view,
         )
         back_button.pack(pady=6)
@@ -200,19 +265,22 @@ class UI:
         self._clear_view()
 
         self._main_view = Frame(
-            self._root, padx=self._view_padx, pady=self._view_pady)
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
         self._main_view.pack(fill="both", expand=True)
 
-        title = Label(self._main_view, text="You got logged in",
-                      font=("Arial", 34, "bold"))
+        content = self._create_centered_group()
+
+        title = Label(content, text="You got logged in",
+                      font=("Arial", 34, "bold"), bg="#FEFBE7")
         title.pack(pady=(0, 24))
 
         subtitle = Label(
-            self._main_view,
+            content,
             text=f"Welcome, {username}. This will become the default user home view later.",
-            font=("Arial", 16),
+            font=("Arial", 16, "bold"),
             wraplength=560,
             justify="center",
+            bg="#FEFBE7"
         )
         subtitle.pack(pady=(0, 24))
 
@@ -220,5 +288,5 @@ class UI:
         """Shows information about the application."""
         messagebox.showinfo(
             "About",
-            "Dear Diary helps you keep your diary entries organized and inspires you with daily prompts.",
+            "Dear Diary helps you keep your diary entries organized and inspires you with daily prompts."
         )
