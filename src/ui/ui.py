@@ -3,6 +3,7 @@
 from pathlib import Path
 from tkinter import Frame, Label, Button, Entry, PhotoImage, messagebox
 
+
 class UI:
     def __init__(self, root, user_service):
         """Initializes the UI with the root window and user service."""
@@ -28,11 +29,13 @@ class UI:
         """Shows the main view with options to login, sign up, or view about information."""
         self._clear_view()
         # generoitu koodi alkaa, sain siis ton _view_padx ja pady idean tekoälyltä
-        self._main_view = Frame(self._root, padx=self._view_padx, pady=self._view_pady)
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady)
         self._main_view.pack(fill="both", expand=True)
         # generoitu koodi loppuu
 
-        title = Label(self._main_view, text="DEAR DIARY", font=("Arial", 38, "bold"))
+        title = Label(self._main_view, text="DEAR DIARY",
+                      font=("Arial", 38, "bold"))
         title.pack(pady=(0, 48))
 
         # generoitu koodi alkaa, sain ton logo toteutus-idean tekoälyltä
@@ -74,23 +77,29 @@ class UI:
         """Opens the sign up view and registers a new user."""
         self._clear_view()
 
-        self._main_view = Frame(self._root, padx=self._view_padx, pady=self._view_pady)
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady)
         self._main_view.pack(fill="both", expand=True)
 
-        title = Label(self._main_view, text="SIGN UP", font=("Arial", 40, "bold"))
+        title = Label(self._main_view, text="SIGN UP",
+                      font=("Arial", 40, "bold"))
         title.pack(pady=(0, 36))
 
-        username_label = Label(self._main_view, text="Username", font=("Arial", 16))
+        username_label = Label(
+            self._main_view, text="Username", font=("Arial", 16))
         username_label.pack(anchor="w")
         username_entry = Entry(self._main_view, font=("Arial", 16), width=24)
         username_entry.pack(pady=(0, 18))
 
-        password_label = Label(self._main_view, text="Password", font=("Arial", 16))
+        password_label = Label(
+            self._main_view, text="Password", font=("Arial", 16))
         password_label.pack(anchor="w")
-        password_entry = Entry(self._main_view, font=("Arial", 16), width=24, show="*")
+        password_entry = Entry(self._main_view, font=(
+            "Arial", 16), width=24, show="*")
         password_entry.pack(pady=(0, 24))
 
-        error_label = Label(self._main_view, text="", fg="red", font=("Arial", 12))
+        error_label = Label(self._main_view, text="",
+                            fg="red", font=("Arial", 12))
         error_label.pack(pady=(0, 10))
 
         def handle_signup():
@@ -129,23 +138,29 @@ class UI:
         """Opens the login view and authenticates the user."""
         self._clear_view()
 
-        self._main_view = Frame(self._root, padx=self._view_padx, pady=self._view_pady)
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady)
         self._main_view.pack(fill="both", expand=True)
 
-        title = Label(self._main_view, text="LOGIN", font=("Arial", 40, "bold"))
+        title = Label(self._main_view, text="LOGIN",
+                      font=("Arial", 40, "bold"))
         title.pack(pady=(0, 36))
 
-        username_label = Label(self._main_view, text="Username", font=("Arial", 16))
+        username_label = Label(
+            self._main_view, text="Username", font=("Arial", 16))
         username_label.pack(anchor="w")
         username_entry = Entry(self._main_view, font=("Arial", 16), width=24)
         username_entry.pack(pady=(0, 18))
 
-        password_label = Label(self._main_view, text="Password", font=("Arial", 16))
+        password_label = Label(
+            self._main_view, text="Password", font=("Arial", 16))
         password_label.pack(anchor="w")
-        password_entry = Entry(self._main_view, font=("Arial", 16), width=24, show="*")
+        password_entry = Entry(self._main_view, font=(
+            "Arial", 16), width=24, show="*")
         password_entry.pack(pady=(0, 24))
 
-        error_label = Label(self._main_view, text="", fg="red", font=("Arial", 12))
+        error_label = Label(self._main_view, text="",
+                            fg="red", font=("Arial", 12))
         error_label.pack(pady=(0, 10))
 
         def handle_login():
@@ -184,10 +199,12 @@ class UI:
         """Shows the success view after a successful login."""
         self._clear_view()
 
-        self._main_view = Frame(self._root, padx=self._view_padx, pady=self._view_pady)
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady)
         self._main_view.pack(fill="both", expand=True)
 
-        title = Label(self._main_view, text="You got logged in", font=("Arial", 34, "bold"))
+        title = Label(self._main_view, text="You got logged in",
+                      font=("Arial", 34, "bold"))
         title.pack(pady=(0, 24))
 
         subtitle = Label(

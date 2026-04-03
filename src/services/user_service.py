@@ -1,5 +1,6 @@
 """This file is responsible for managing user-related operations."""
 
+
 class UserService:
     def __init__(self):
         """Initializes the user service with an empty list of users."""
