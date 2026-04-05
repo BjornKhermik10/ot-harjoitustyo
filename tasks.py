@@ -10,12 +10,12 @@ def start(ctx):
 
 @task
 def test(ctx):
-    ctx.run("pytest src/tests", pty=True)
+    ctx.run("PYTHONPATH=src pytest src/tests", pty=True)
 
 
 @task
 def coverage(ctx):
-    ctx.run("coverage run -m pytest src/tests", pty=True)
+    ctx.run("PYTHONPATH=src coverage run -m pytest src/tests", pty=True)
 
 
 @task(coverage)
