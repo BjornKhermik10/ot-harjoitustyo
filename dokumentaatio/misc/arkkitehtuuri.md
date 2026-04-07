@@ -37,35 +37,16 @@ Sovelluksen tietomallin muodostavat luokat
 ohjelman luokkien suhdetta kuvaava luokkakaavio
 
 ```mermaid
-    class UI{
-        +start()
-        +_open_signup()
-        +_open_login()
-        +_open_daily_prompt()
-        +_open_my_entries()
-    }
-    
-    class UserService{
-        +register(username, password) bool
-        +login(username, password) bool
-        +add_entry(username, prompt, content) bool
-        +get_entries_for_user(username) list
-        -_hash_password(password) str
-        -_verify_password(password, password_hash) bool
-    }
-    
-    class UserRepository{
-        +create(username, password_hash) bool
-        +find_by_username(username) dict
-    }
-    
-    class EntryRepository{
-        +create(user_id, prompt, content)
-        +find_for_user(user_id) list
-    }
-    
-    class Database{
-        +get_connection()
-    }
+classDiagram
+    UI --> UserService
+    UserService --> UserRepository
+    UserService --> EntryRepository
+    UserRepository --> Database
+    EntryRepository --> Database
 
+    class UI
+    class UserService
+    class UserRepository
+    class EntryRepository
+    class Database
 ```
