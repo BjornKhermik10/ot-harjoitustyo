@@ -14,8 +14,9 @@ Käyttöliittymään kuuluu 4 näkymää toistaiseksi:
 ## Sovelluslogiikka
 Sovellukseen on nyt lisätty tietokanta sqlite3, jossa on käyttäjät ja "journal entries"
 
-´´´mermaid
+Sovelluksen tietomallin muodostavat luokat
 
+```mermaid
     classDiagram
     User "1" --> "*" Entry
 
@@ -32,11 +33,10 @@ Sovellukseen on nyt lisätty tietokanta sqlite3, jossa on käyttäjät ja "journ
         content
         created_at
     }
+```
+ohjelman luokkien suhdetta kuvaava luokkakaavio
 
-´´´
-
-´´´mermaid
-
+```mermaid
 class UI{
     +start()
     +_open_signup()
@@ -67,5 +67,4 @@ class EntryRepository{
 class Database{
     +get_connection()
 }
-
-´´´
+```
