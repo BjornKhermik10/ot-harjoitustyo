@@ -9,6 +9,7 @@ class UI:
         """Initializes the UI with the root window and user service."""
         self._root = root
         self._user_service = user_service
+        self._current_user = None
         self._main_view = None
         self.logo = None
         self._view_padx = 40
@@ -262,6 +263,7 @@ class UI:
 
     def _open_logged_in_view(self, username):
         """Shows the logged-in view after a successful login."""
+        self._current_user = username
         self._clear_view()
 
         self._main_view = Frame(
@@ -309,7 +311,7 @@ class UI:
         )
         daily_prompt.pack(pady=6)
 
-    def _open_my_entries(self, username):
+    def _open_my_entries(self):
         """Shows my-entries view"""
         self._clear_view()
 
@@ -319,84 +321,92 @@ class UI:
 
         content = self._create_centered_group()
 
+    def _open_daily_prompt(self):
+        """Shows daily prompt view"""
+        self._clear_view()
+
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
+        self._main_view.pack(fill="both", expand=True)
+
+        content = self._create_centered_group()
+
+        title = ctk.CTkLabel(content, text="DAILY PROMPT",
+                            font=("Arial", 38, "bold"),
+                            text_color="#0F0099")
+        title.pack(pady=(0, 20))
+
+        guidance_box = ctk.CTkLabel(
+            content,
+            text="What made today a better day?",
+            fg_color="#FFF9C4",
+            text_color="#5D4037",
+            corner_radius=6,
+            padx=15,
+            pady=10
+        )
+        guidance_box.pack(pady=(0, 15))
+
         form_frame = Frame(content, bg="#FEFBE7")
         form_frame.pack(pady=(0, 5))
 
-        username_row = Frame(form_frame, bg="#FEFBE7")
-        username_row.pack(pady=(0, 12))
-        username_label = Label(
-            username_row, text="Username", font=("Arial", 16), bg="#FEFBE7")
-        username_label.pack(side="left")
-        username_entry = Entry(username_row, font=("Arial", 16), width=24)
-        username_entry.pack(side="left", padx=(12, 0))
+        daily_prompt_row = Frame(form_frame, bg="#FEFBE7")
+        daily_prompt_row.pack(pady=(0, 0))
 
-    def _open_daily_prompt(self, username):
-            """Shows daily prompt view"""
-            self._clear_view()
+        daily_prompt_label = ctk.CTkLabel(
+            daily_prompt_row, text="Start Writing:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        daily_prompt_label.pack(side="top", anchor="w")
 
-            self._main_view = Frame(
-                self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
-            self._main_view.pack(fill="both", expand=True)
+        daily_prompt_entry = Text(daily_prompt_row, font=("Arial", 16), width=30, height=12, padx=20, pady=6, spacing3=6)
+        daily_prompt_entry.pack(side="top")
 
-            content = self._create_centered_group()
+        button_row = Frame(content, bg="#FEFBE7")
+        button_row.pack(fill="x", pady=(10, 0))
 
-            title = ctk.CTkLabel(content, text="DAILY PROMPT",
-                                font=("Arial", 38, "bold"),
-                                text_color="#0F0099")
-            title.pack(pady=(0, 20))
+        def handle_save_entry():
+            content_text = daily_prompt_entry.get("1.0", "end").strip()
+            prompt_text = "What made today a better day?"
 
-            guidance_box = ctk.CTkLabel(
-                content,
-                text="What made today a better day?",
-                fg_color="#FFF9C4",
-                text_color="#5D4037",
-                corner_radius=6,
-                padx=15,
-                pady=10
+            if not content_text:
+                messagebox.showerror("Save entry", "Entry text cannot be empty.")
+                return
+
+            saved = self._user_service.add_entry(
+                self._current_user,
+                prompt_text,
+                content_text,
             )
-            guidance_box.pack(pady=(0, 15))
+            if saved:
+                messagebox.showinfo("Save entry", "Diary entry saved.")
+                self._open_logged_in_view(self._current_user)
+            else:
+                messagebox.showerror("Save entry", "Could not save diary entry.")
 
-            form_frame = Frame(content, bg="#FEFBE7")
-            form_frame.pack(pady=(0, 5))
+        save_button = ctk.CTkButton(
+            button_row,
+            text="Save",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 20, "bold"),
+            width=150,
+            command=handle_save_entry,
+        )
+        save_button.pack(side="right")
 
-            daily_prompt_row = Frame(form_frame, bg="#FEFBE7")
-            daily_prompt_row.pack(pady=(0, 0))
-            
-            daily_prompt_label = ctk.CTkLabel(
-                daily_prompt_row, text="Start Writing:", font=("Arial", 12, "bold"), text_color="#0F0099")
-            daily_prompt_label.pack(side="top", anchor="w")
-            
-            daily_prompt_entry = Text(daily_prompt_row, font=("Arial", 16), width=30, height=12, padx=20, pady=6, spacing3=6)
-            daily_prompt_entry.pack(side="top")
-
-            button_row = Frame(content, bg="#FEFBE7")
-            button_row.pack(fill="x", pady=(10, 0))
-
-            preview_submission = ctk.CTkButton(
-                button_row,
-                text="Preview",
-                text_color="#FFFFFF",
-                corner_radius=8,
-                fg_color="#0F0099",
-                hover_color="#171151",
-                font=("Arial", 20, "bold"),
-                width=150,
-                command=self._open_preview_submission,
-            )
-            preview_submission.pack(side="right")
-
-            back_to_logged_in_view = ctk.CTkButton(
-                button_row,
-                text="Back",
-                text_color="#FFFFFF",
-                corner_radius=8,
-                fg_color="#646466",
-                hover_color="#3A3A3A",
-                font=("Arial", 20, "bold"),
-                width=150,
-                command=self._open_logged_in_view,
-            )
-            back_to_logged_in_view.pack(side="left")
+        back_to_logged_in_view = ctk.CTkButton(
+            button_row,
+            text="Back",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#646466",
+            hover_color="#3A3A3A",
+            font=("Arial", 20, "bold"),
+            width=150,
+            command=lambda: self._open_logged_in_view(self._current_user),
+        )
+        back_to_logged_in_view.pack(side="left")
     
     def _open_preview_submission(self):
         """Shows information about the application."""

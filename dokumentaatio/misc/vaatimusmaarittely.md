@@ -23,34 +23,32 @@ StartingPage -> Login/SignUp/About -> MainPage -> 3 options 1.(About) 2.(My Entr
 
 ### Before Log-in
 
-- User can create an account
+- User can create an account (DONE!)
 
-- User can create an account
-  - The account Username must be unique
-  - The Sign up phase requires to fill out all mandatory fields
-- User can log in
-  - The log in goes through if the Username and Password are correct
-  - If the account doesn't exsist of the password is wrong the app will have a notification
+- User can create an account (DONE!)
+  - The account Username must be unique (DONE!)
+  - The Sign up phase requires to fill out all mandatory fields (DONE!)
+- User can log in (DONE!)
+  - The log in goes through if the Username and Password are correct (DONE!)
+  - If the account doesn't exsist of the password is wrong the app will have a notification (DONE!)
 
 ### After Log-in
 
-- The User is brought to the MainPage
-- The User can go to the about page.
-  - View more information about the app.
-- The User can go to the Daily prompt page
-  - Go back to the Main page.
-  - Fill/type out the daily prompt.
+- The User is brought to the MainPage (DONE!)
+- The User can go to the about pop-up. (DONE!)
+  - View more information about the app. (DONE!)
+- The User can go to the Daily prompt page (DONE!)
+  - Go back to the Main page. (DONE!)
+  - Fill/type out the daily prompt. (DONE!)
   - Preview it before publishing it. (Add a title and a date MANDATORY)
-  - Can go back to edit the entry before publishing.
+  - Can go back to edit the entry before publishing. 
 - The User can go to My Entries page
   - To view all his previous entries in a list view
   - Go back to the Mainpage
 
 ## Information Storage
 
-- The User information will be stored in a JSON-file.
-- Every User gets their own JSON-file for information storage.
-- The JSON-files are created automatically for the user and are stored after the app is closed.
+- The User information will be stored in a SQLite3-database.
 
 ## Future Development ideas
 
