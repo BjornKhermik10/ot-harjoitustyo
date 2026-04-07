@@ -34,7 +34,7 @@ Sovelluksen tietomallin muodostavat luokat
         created_at
     }
 ```
-ohjelman luokkien suhdetta kuvaava luokkakaavio
+ohjelman osien suhdetta kuvaava kaavio
 
 ```mermaid
 classDiagram
