@@ -10,7 +10,7 @@ The "Dear Diary" app is meant to work as a digital diary application. The app en
 
 [Changelog](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/changelog.md)
 
-[kayttoohje](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/english_instructions.md)
+[kayttoohje](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/English_instructions.md)
 
 [Arkkitehtuuri](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/arkkitehtuuri.md)
 
@@ -41,6 +41,12 @@ To generate a coverage report, use:
 
 ```
 poetry run invoke coverage-report
+```
+
+To run lint checks, use:
+
+```
+poetry run invoke lint
 ```
 
 In WSL, the task opens the report with Windows browser integration (explorer.exe).

@@ -4,9 +4,8 @@ from pathlib import Path
 from data.database import Database, initialize_database
 from repositories.entry_repository import EntryRepository
 from repositories.user_repository import UserRepository
-from ui.ui import UI
 from services.user_service import UserService
-import customtkinter as ctk
+from ui.ui import UI
 
 
 def main():

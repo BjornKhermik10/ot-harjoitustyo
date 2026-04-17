@@ -18,6 +18,11 @@ def coverage(ctx):
     ctx.run("PYTHONPATH=src coverage run -m pytest src/tests", pty=True)
 
 
+@task
+def lint(ctx):
+    ctx.run("pylint src", pty=True)
+
+
 @task(coverage)
 def coverage_report(ctx):
     ctx.run("coverage html", pty=True)

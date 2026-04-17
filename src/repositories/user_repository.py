@@ -1,5 +1,7 @@
 """User repository for database operations."""
 
+from sqlite3 import IntegrityError
+
 
 class UserRepository:
     """Encapsulates SQL operations related to users."""
@@ -16,7 +18,7 @@ class UserRepository:
             )
             self._connection.commit()
             return True
-        except Exception:
+        except IntegrityError:
             return False
 
     def find_by_username(self, username):
