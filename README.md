@@ -26,11 +26,7 @@ Before starting the program, install the dependencies with the following command
 ```
 poetry install
 ```
-After that, perform the initialization procedures with the command:
 
-```
-poetry run invoke build
-```
 Now the program can be started with the command:
 
 ```
