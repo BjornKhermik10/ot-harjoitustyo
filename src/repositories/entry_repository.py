@@ -28,3 +28,12 @@ class EntryRepository:
         )
         rows = cursor.fetchall()
         return [dict(row) for row in rows]
+
+    def delete_for_user(self, entry_id, user_id):
+        """Deletes one entry owned by a user. Returns True when deleted."""
+        cursor = self._connection.execute(
+            "DELETE FROM entries WHERE id = ? AND user_id = ?",
+            (entry_id, user_id),
+        )
+        self._connection.commit()
+        return cursor.rowcount > 0

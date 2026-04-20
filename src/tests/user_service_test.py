@@ -89,3 +89,35 @@ def test_data_persists_when_using_file_database(tmp_path):
     assert len(entries) == 1
     assert entries[0]["content"] == "working?"
 
+def test_user_can_delete_entries():
+    service = UserService()
+
+    assert service.register("Björn", "123lol")
+    assert service.add_entry("Björn", "Prompt", "Today was awesome")
+    assert service.add_entry("Björn", "Prompt2", "gonnadeletethis")
+
+    entries = service.get_entries_for_user("Björn")
+    entry_id = entries[1]["id"]
+    assert service.delete_entry_for_user("Björn", entry_id)
+
+    assert len(service.get_entries_for_user("Björn")) == 1
+
+def test_user_cannot_delete_entry_of_another_user():
+    service = UserService()
+
+    assert service.register("Björn", "123lol")
+    assert service.register("Kalle", "1234lol")
+    assert service.add_entry("Björn", "Prompt", "Today was awesome")
+
+    entries = service.get_entries_for_user("Björn")
+    entry_id = entries[0]["id"]
+    assert not service.delete_entry_for_user("Kalle", entry_id)
+    assert len(service.get_entries_for_user("Björn")) == 1
+
+def test_signup_view_validation():
+    service = UserService()
+
+    assert not service.register("", "123lol")
+    assert not service.register("Björn", "")
+    assert not service.register(" ", "123lol")
+    assert not service.register("Björn", " ")

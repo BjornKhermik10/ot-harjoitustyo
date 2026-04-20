@@ -321,6 +321,135 @@ class UI:
 
         content = self._create_centered_group()
 
+        title = ctk.CTkLabel(
+            content,
+            text="MY ENTRIES",
+            font=("Arial", 36, "bold"),
+            text_color="#0F0099",
+        )
+        title.pack(pady=(0, 20))
+
+        entries = self._user_service.get_entries_for_user(self._current_user)
+        entries = sorted(
+            entries,
+            key=lambda entry: (entry.get("created_at") or "", entry.get("id") or 0),
+            reverse=True,
+        )
+
+        if not entries:
+            empty_label = ctk.CTkLabel(
+                content,
+                text="No entries yet.",
+                font=("Arial", 16),
+                text_color="#171151",
+            )
+            empty_label.pack(pady=(10, 24))
+        else:
+            list_frame = ctk.CTkScrollableFrame(
+                content,
+                width=760,
+                height=390,
+                fg_color="#FEFBE7",
+            )
+            list_frame.pack(pady=(0, 14))
+
+            for entry in entries:
+                entry_row = Frame(
+                    list_frame,
+                    bg="#FFF8D6",
+                    highlightbackground="#E5DFC5",
+                    highlightthickness=1,
+                    padx=10,
+                    pady=10,
+                )
+                entry_row.pack(fill="x", pady=(0, 10))
+
+                text_frame = Frame(entry_row, bg="#FFF8D6")
+                text_frame.pack(side="left", fill="both", expand=True)
+
+                created_at = entry.get("created_at", "Unknown date")
+                created_label = Label(
+                    text_frame,
+                    text=f"Date: {created_at}",
+                    font=("Arial", 12, "bold"),
+                    bg="#FFF8D6",
+                    fg="#0F0099",
+                    anchor="w",
+                    justify="left",
+                )
+                created_label.pack(fill="x")
+
+                prompt_text = entry.get("prompt", "")
+                if prompt_text:
+                    prompt_label = Label(
+                        text_frame,
+                        text=f"Prompt: {prompt_text}",
+                        font=("Arial", 12),
+                        bg="#FFF8D6",
+                        fg="#2E2E2E",
+                        anchor="w",
+                        justify="left",
+                        wraplength=560,
+                    )
+                    prompt_label.pack(fill="x", pady=(2, 0))
+
+                content_label = Label(
+                    text_frame,
+                    text=entry.get("content", ""),
+                    font=("Arial", 12),
+                    bg="#FFF8D6",
+                    fg="#111111",
+                    anchor="w",
+                    justify="left",
+                    wraplength=560,
+                )
+                content_label.pack(fill="x", pady=(4, 0))
+
+                def handle_delete(entry_id=entry.get("id")):
+                    if not messagebox.askyesno(
+                        "Delete entry",
+                        "Are you sure you want to delete this entry?",
+                    ):
+                        return
+
+                    deleted = self._user_service.delete_entry_for_user(
+                        self._current_user,
+                        entry_id,
+                    )
+                    if deleted:
+                        self._open_my_entries()
+                    else:
+                        messagebox.showerror(
+                            "Delete entry",
+                            "Could not delete the selected entry.",
+                        )
+
+                delete_button = ctk.CTkButton(
+                    entry_row,
+                    text="Delete",
+                    text_color="#FFFFFF",
+                    corner_radius=8,
+                    fg_color="#B00020",
+                    hover_color="#7A0015",
+                    font=("Arial", 14, "bold"),
+                    width=110,
+                    command=handle_delete,
+                )
+                delete_button.pack(side="right", padx=(10, 0), pady=(4, 0), anchor="n")
+
+        back_button = ctk.CTkButton(
+            content,
+            text="Back",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#646466",
+            hover_color="#3A3A3A",
+            font=("Arial", 16, "bold"),
+            width=180,
+            command=lambda: self._open_logged_in_view(self._current_user),
+        )
+        back_button.pack(pady=(8, 0))
+
     def _open_daily_prompt(self):
         """Shows daily prompt view"""
         self._clear_view()

@@ -85,3 +85,15 @@ class UserService:
             return []
 
         return self._entry_repository.find_for_user(user["id"])
+
+    def delete_entry_for_user(self, username: str, entry_id: int) -> bool:
+        """Deletes one diary entry for a user and returns success"""
+        username = username.strip()
+        if not username:
+            return False
+
+        user = self._user_repository.find_by_username(username)
+        if not user:
+            return False
+
+        return self._entry_repository.delete_for_user(entry_id, user["id"])
