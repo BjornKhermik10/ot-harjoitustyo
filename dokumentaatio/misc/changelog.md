@@ -22,3 +22,4 @@
 - Entries sorted by creation date in list
 - Added tests to ui to increase coverage
 - Added test to user_service also
+- Github release
