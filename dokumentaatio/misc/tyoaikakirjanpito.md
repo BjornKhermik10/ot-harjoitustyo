@@ -7,11 +7,11 @@
 | 31.3  | 9.5 | Ideas, Preparing repository directories, Coding, tweeking visuals, building first test | 
 |  3.4  | 5.5 | More visual changes and thinking about how to advance | 
 |  7.4  | 9.5 | Big changes to architecture (database) new page, entry handling, some new tests, visual changes | 
-| 19.4-20.4 |  12   | Added list functionality to my entries, delete functionality to my entries, tests to ui and user services fixed repo cleanliness and did some dokumentation changes | 
+| 19.4  |  8   | Added list functionality to my entries | 
+| 20.4  |  8  | delete functionality to my entries, tests to ui and user services fixed repo cleanliness and did some dokumentation changes | 
+| 21.4  |  2 | clean up and dokumentation updates | 
 |       |     | | 
 |       |     | | 
 |       |     | | 
 |       |     | | 
-|       |     | | 
-|       |     | | 
-| AllHours:   | 39.5| |
+| AllHours:   | 41.5| |
