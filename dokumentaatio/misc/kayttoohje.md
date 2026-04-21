@@ -19,6 +19,11 @@ Coverage-raportin saa luotua komennolla:
 ```bash
 poetry run invoke coverage-report
 ```
+lint tarkistus onnistuu komennolla:
+
+```
+poetry run invoke lint
+```
 
 WSL-ymparistossa raportti avataan Windowsin selaimeen explorer.exe:n kautta.
 
