@@ -33,3 +33,13 @@ You can log in by entering an existing username into the input field and clickin
 From the login view, you can navigate to the "create new user" view by clicking the "Sign up" button.
 
 A new user is created by entering the required details into the input fields and clicking the "Sign up" button. If the user creation is successful, you will be redirected to the home view.
+
+## Daily prompt page
+
+Write your daily journal entry with the help of the daily prompt quote
+
+Submit your entry
+
+## My entries page
+
+Scroll through your entries in chronological order and delete them if needed
