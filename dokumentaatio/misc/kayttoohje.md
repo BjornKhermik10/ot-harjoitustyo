@@ -8,12 +8,6 @@ Ennen ohjelman käynnistämistä, asenna riippuvuudet komennolla:
 poetry install
 ```
 
-Jonka jälkeen suorita alustustoimenpiteet komennolla:
-
-```bash
-poetry run invoke build
-```
-
 Nyt ohjelman voi käynnistää komennolla:
 
 ```
