@@ -59,3 +59,13 @@ The application opens to a home view where you can choose between the "create us
 
 You can log in by entering an existing username into the input field and clicking the "Login" button.
 
+## Daily prompt page
+
+Write your daily journal entry with the help of the daily prompt quote
+
+Submit your entry
+
+## My entries page
+
+Scroll through your entries in chronological order and delete them if needed
+
