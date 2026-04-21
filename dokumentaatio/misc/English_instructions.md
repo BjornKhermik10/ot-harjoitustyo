@@ -20,6 +20,14 @@ To generate a coverage report, use:
 poetry run invoke coverage-report
 ```
 
+To run lint checks, use:
+
+```
+poetry run invoke lint
+```
+
+In WSL, the task opens the report with Windows browser integration (explorer.exe).
+
 In WSL, the task opens the report with Windows browser integration (explorer.exe).
 
 ## Logging In
