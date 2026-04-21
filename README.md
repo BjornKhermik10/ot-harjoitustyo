@@ -16,6 +16,7 @@ The "Dear Diary" app is meant to work as a digital diary application. The app en
 
 [Testaus](https://github.com/BjornKhermik10/ot-harjoitustyo/blob/master/dokumentaatio/misc/testaus.md)
 
+[Github Release](https://github.com/bjornkhermik10/ot-harjoitustyo/releases/latest)
 
 ## User Guide
 
