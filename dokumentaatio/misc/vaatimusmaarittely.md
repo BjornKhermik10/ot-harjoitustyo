@@ -40,7 +40,7 @@ StartingPage -> Login/SignUp/About -> MainPage -> 3 options 1.(About) 2.(My Entr
 - The User can go to the Daily prompt page (DONE!)
   - Go back to the Main page. (DONE!)
   - Fill/type out the daily prompt. (DONE!)
-  - Preview it before publishing it.
+  - Preview it before publishing it and add title. (DONE!)
   - Can go back to edit the entry before publishing. (DONE!)
 - The User can go to My Entries page (DONE!)
   - To view all his previous entries in a list view (DONE!)
