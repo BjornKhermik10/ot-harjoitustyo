@@ -29,3 +29,4 @@
 - Added architecture documentation "sekvenssi-kaavio" "sequence-graph"
 - Added new preview page, before publishing entry
 - Added title to the existing database and everywhere where needed to keep functionality working.
+- Added Docu string documentation where missing
