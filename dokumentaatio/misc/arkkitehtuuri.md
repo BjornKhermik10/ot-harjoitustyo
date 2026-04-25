@@ -68,6 +68,4 @@ sequenceDiagram
     Database-->>UserRepository: Käyttäjä tai ei löytynyt
     UserRepository-->>UserService: user / None
     UserService-->>UI: true / false
-    Note over UI: Jos tulos on true, UI avaa kirjautuneen käyttäjän näkymän.
-    Note over UI: Jos tulos on false, UI näyttää virheilmoituksen.
 ```
