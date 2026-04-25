@@ -87,15 +87,11 @@ sequenceDiagram
     UserRepository->>Database: Hae käyttäjä rivinä
     Database-->>UserRepository: Käyttäjä tai ei löytynyt
     UserRepository-->>UserService: user / None
-    alt Käyttäjä löytyi
-        UserService-->>UI: false (käyttäjä jo olemassa)
-    else Käyttäjä ei löytynyt
-        UserService->>UserRepository: create(username, password_hash)
-        UserRepository->>Database: Tallenna uusi käyttäjä
-        Database-->>UserRepository: Käyttäjä tallennettu
-        UserRepository-->>UserService: true
-        UserService-->>UI: true
-    end
+    UserService->>UserRepository: create(username, password_hash)
+    UserRepository->>Database: Tallenna uusi käyttäjä
+    Database-->>UserRepository: Käyttäjä tallennettu
+    UserRepository-->>UserService: true / false
+    UserService-->>UI: true / false
     UI-->>Käyttäjä: Näytä onnistumis- tai virheviesti
 ```
 
