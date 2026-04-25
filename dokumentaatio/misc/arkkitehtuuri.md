@@ -50,3 +50,28 @@ classDiagram
     class EntryRepository
     class Database
 ```
+Kirjautumisen sekvenssikaavio
+
+```mermaid
+sequenceDiagram
+    actor Käyttäjä
+    participant UI
+    participant UserService
+    participant UserRepository
+    participant Database
+
+    Käyttäjä->>UI: Syöttää käyttäjätunnuksen ja salasanan
+    Käyttäjä->>UI: Painaa LOGIN
+    UI->>UserService: login(username, password)
+    UserService->>UserRepository: find_by_username(username)
+    UserRepository->>Database: Hae käyttäjä rivinä
+    Database-->>UserRepository: Käyttäjä tai ei löytynyt
+    UserRepository-->>UserService: user / None
+    alt tunnus ja salasana oikein
+        UserService-->>UI: true
+        UI->>UI: Avaa kirjautuneen käyttäjän näkymän
+    else tunnus tai salasana väärin
+        UserService-->>UI: false
+        UI->>UI: Näyttää virheilmoituksen
+    end
+```
