@@ -10,7 +10,7 @@
 | 19.4  |  8   | Added list functionality to my entries | 
 | 20.4  |  8  | delete functionality to my entries, tests to ui and user services fixed repo cleanliness and did some dokumentation changes | 
 | 21.4  |  3 | clean up and dokumentation updates, github release | 
-|       |     | | 
+| 25.4  |  7 | Big change to database, added title everywhere where needed for entry, new preview page, some small visual tweeks to my_entry page, sequence graph added also, | 
 |       |     | | 
 |       |     | | 
 |       |     | | 
