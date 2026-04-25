@@ -7,11 +7,11 @@ class EntryRepository:
     def __init__(self, connection):
         self._connection = connection
 
-    def create(self, user_id, prompt, content):
+    def create(self, user_id, prompt, content, title=None):
         """Stores a diary entry for a user."""
         self._connection.execute(
-            "INSERT INTO entries (user_id, prompt, content) VALUES (?, ?, ?)",
-            (user_id, prompt, content),
+            "INSERT INTO entries (user_id, prompt, content, title) VALUES (?, ?, ?, ?)",
+            (user_id, prompt, content, title),
         )
         self._connection.commit()
 
@@ -19,7 +19,7 @@ class EntryRepository:
         """Returns all diary entries for a user, newest first."""
         cursor = self._connection.execute(
             """
-            SELECT id, prompt, content, created_at
+            SELECT id, prompt, content, title, created_at
             FROM entries
             WHERE user_id = ?
             ORDER BY datetime(created_at) DESC, id DESC

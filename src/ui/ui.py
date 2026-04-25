@@ -1,6 +1,7 @@
 """This file is responsible for the main user interface and what happens when you click a button."""
 
 from pathlib import Path
+from datetime import datetime
 from tkinter import Text, Tk, Frame, Label, Entry, PhotoImage, messagebox
 import customtkinter as ctk
 
@@ -368,9 +369,14 @@ class UI:
                 text_frame.pack(side="left", fill="both", expand=True)
 
                 created_at = entry.get("created_at", "Unknown date")
+                # Format "YYYY-MM-DD HH:MM:SS" to "DD / MM / YYYY"
+                date_part = created_at.split()[0]
+                year, month, day = date_part.split("-")
+                formatted_date = f"{day} / {month} / {year}"
+                
                 created_label = Label(
                     text_frame,
-                    text=f"Date: {created_at}",
+                    text=f"Date: {formatted_date}",
                     font=("Arial", 12, "bold"),
                     bg="#FFF8D6",
                     fg="#0F0099",
@@ -379,31 +385,19 @@ class UI:
                 )
                 created_label.pack(fill="x")
 
-                prompt_text = entry.get("prompt", "")
-                if prompt_text:
-                    prompt_label = Label(
+                title_text = entry.get("title", "")
+                if title_text:
+                    title_label = Label(
                         text_frame,
-                        text=f"Prompt: {prompt_text}",
-                        font=("Arial", 12),
+                        text=f"Title: {title_text}",
+                        font=("Arial", 12, "bold"),
                         bg="#FFF8D6",
-                        fg="#2E2E2E",
+                        fg="#0F0099",
                         anchor="w",
                         justify="left",
                         wraplength=560,
                     )
-                    prompt_label.pack(fill="x", pady=(2, 0))
-
-                content_label = Label(
-                    text_frame,
-                    text=entry.get("content", ""),
-                    font=("Arial", 12),
-                    bg="#FFF8D6",
-                    fg="#111111",
-                    anchor="w",
-                    justify="left",
-                    wraplength=560,
-                )
-                content_label.pack(fill="x", pady=(4, 0))
+                    title_label.pack(fill="x", pady=(2, 0))
 
                 def handle_delete(entry_id=entry.get("id")):
                     if not messagebox.askyesno(
@@ -492,37 +486,28 @@ class UI:
         button_row = Frame(content, bg="#FEFBE7")
         button_row.pack(fill="x", pady=(10, 0))
 
-        def handle_save_entry():
+        def handle_preview_entry():
             content_text = daily_prompt_entry.get("1.0", "end").strip()
             prompt_text = "What made today a better day?"
 
             if not content_text:
-                messagebox.showerror("Save entry", "Entry text cannot be empty.")
+                messagebox.showerror("Preview entry", "Entry text cannot be empty.")
                 return
 
-            saved = self._user_service.add_entry(
-                self._current_user,
-                prompt_text,
-                content_text,
-            )
-            if saved:
-                messagebox.showinfo("Save entry", "Diary entry saved.")
-                self._open_logged_in_view(self._current_user)
-            else:
-                messagebox.showerror("Save entry", "Could not save diary entry.")
+            self._show_preview_page(prompt_text, content_text)
 
-        save_button = ctk.CTkButton(
+        preview_button = ctk.CTkButton(
             button_row,
-            text="Save",
+            text="Preview",
             text_color="#FFFFFF",
             corner_radius=8,
             fg_color="#0F0099",
             hover_color="#171151",
             font=("Arial", 20, "bold"),
             width=150,
-            command=handle_save_entry,
+            command=handle_preview_entry,
         )
-        save_button.pack(side="right")
+        preview_button.pack(side="right")
 
         back_to_logged_in_view = ctk.CTkButton(
             button_row,
@@ -537,12 +522,100 @@ class UI:
         )
         back_to_logged_in_view.pack(side="left")
     
-    def _open_preview_submission(self):
-        """Shows information about the application."""
-        messagebox.showinfo(
-            "About",
-            "Dear Diary helps you keep your diary entries organized and inspires you with daily prompts."
+    def _show_preview_page(self, prompt_text, content_text):
+        """Shows a preview page with editable title and read-only content before publishing."""
+        self._clear_view()
+
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
+        self._main_view.pack(fill="both", expand=True)
+
+        content = self._create_centered_group()
+
+        title = ctk.CTkLabel(content, text="PREVIEW",
+                            font=("Arial", 38, "bold"),
+                            text_color="#0F0099")
+        title.pack(pady=(0, 20))
+
+        form_frame = Frame(content, bg="#FEFBE7")
+        form_frame.pack(pady=(0, 10))
+
+        title_row = Frame(form_frame, bg="#FEFBE7")
+        title_row.pack(pady=(0, 10))
+        title_label = ctk.CTkLabel(
+            title_row, text="Title:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        title_label.pack(side="left", padx=(0, 10))
+        title_entry = Entry(title_row, font=("Arial", 14), width=40)
+        title_entry.pack(side="left")
+
+        current_date = datetime.now().strftime("%d / %m / %Y")
+        date_row = Frame(form_frame, bg="#FEFBE7")
+        date_row.pack(pady=(0, 10))
+        date_label = ctk.CTkLabel(
+            date_row, text="Date:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        date_label.pack(side="left", padx=(0, 10))
+        date_display = ctk.CTkLabel(
+            date_row, text=current_date, font=("Arial", 12), text_color="#171151")
+        date_display.pack(side="left")
+
+        content_label = ctk.CTkLabel(
+            form_frame, text="Double check your text for grammar or typo mistakes!", font=("Arial", 12, "bold"), text_color="#0F0099")
+        content_label.pack(anchor="w", pady=(10, 5))
+
+        content_display = Text(
+            form_frame, font=("Arial", 12), width=50, height=10, padx=10, pady=8, spacing3=6)
+        content_display.insert("1.0", content_text)
+        content_display.config(state="disabled")
+        content_display.pack()
+
+        button_row = Frame(content, bg="#FEFBE7")
+        button_row.pack(fill="x", pady=(15, 0))
+
+        def handle_publish():
+            title_text = title_entry.get().strip()
+            
+            if not title_text:
+                messagebox.showerror("Publish entry", "Title cannot be empty.")
+                return
+
+            saved = self._user_service.add_entry(
+                self._current_user,
+                prompt_text,
+                content_text,
+                title_text,
+            )
+            if saved:
+                messagebox.showinfo("Publish entry", "Diary entry published.")
+                self._open_logged_in_view(self._current_user)
+            else:
+                messagebox.showerror("Publish entry", "Could not publish diary entry.")
+
+        publish_button = ctk.CTkButton(
+            button_row,
+            text="Publish",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 16, "bold"),
+            width=150,
+            command=handle_publish,
         )
+        publish_button.pack(side="right")
+
+        back_button = ctk.CTkButton(
+            button_row,
+            text="Back",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#646466",
+            hover_color="#3A3A3A",
+            font=("Arial", 16, "bold"),
+            width=150,
+            command=lambda: self._open_daily_prompt(),
+        )
+        back_button.pack(side="left")
+    
     def _open_about(self):
         """Shows information about the application."""
         messagebox.showinfo(

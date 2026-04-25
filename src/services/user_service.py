@@ -58,11 +58,13 @@ class UserService:
             return False
         return self._verify_password(password, user["password_hash"])
 
-    def add_entry(self, username: str, prompt: str, content: str) -> bool:
+    def add_entry(self, username: str, prompt: str, content: str, title: str = None) -> bool:
         """Adds a diary entry for a user and returns success status."""
         username = username.strip()
         prompt = prompt.strip()
         content = content.strip()
+        if title:
+            title = title.strip()
 
         if not username or not prompt or not content:
             return False
@@ -71,7 +73,7 @@ class UserService:
         if not user:
             return False
 
-        self._entry_repository.create(user["id"], prompt, content)
+        self._entry_repository.create(user["id"], prompt, content, title)
         return True
 
     def get_entries_for_user(self, username: str):

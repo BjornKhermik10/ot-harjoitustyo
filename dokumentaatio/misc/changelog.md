@@ -23,3 +23,7 @@
 - Added tests to ui to increase coverage
 - Added test to user_service also
 - Github release
+
+## Viikko 6
+
+- Added architecture documentation "sekvenssi-kaavio" "sequence-graph"

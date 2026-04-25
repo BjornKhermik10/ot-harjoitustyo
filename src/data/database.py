@@ -36,6 +36,7 @@ def initialize_database(connection):
             user_id INTEGER NOT NULL,
             prompt TEXT NOT NULL,
             content TEXT NOT NULL,
+            title TEXT,
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );
