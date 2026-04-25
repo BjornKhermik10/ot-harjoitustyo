@@ -44,7 +44,9 @@ A new user is created by entering the required details into the input fields and
 
 Write your daily journal entry with the help of the daily prompt quote
 
-Submit your entry
+## Review entry page
+
+Review your entry for typos or grammar mistakes before publishing
 
 ## My entries page
 

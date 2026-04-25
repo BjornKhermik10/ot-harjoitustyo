@@ -43,12 +43,14 @@ Jos käyttäjän luominen onnistuu, siirrytään siirrytään aloitusnäkymään
 
 ## Päivittäinen päiväkirjamerkintä
 
-Kirjoita päivittäinen päiväkirjamerkintäsi päivän "quoten" avustuksella
+Kirjoita päivittäinen päiväkirjamerkintäsi päivän "quoten" avustuksella.
 
-Tallenna päivittäinen päiväkirjamerkintäsi
+# Tarkista päiväkirjamerkintä
+
+Tarkista ettei tekstissä ole kirjoitys virheitä- tai muita virheitä, jonka jälkeen voit julkaista merkinnän.
 
 ## Minun päiväkirjamerkinnät
 
-Voit katso edelliset päivä kirja merkintäsi, järjestetty julkaisuajan mukaan
+Voit katso edelliset päivä kirja merkintäsi, järjestetty julkaisuajan mukaan.
 
-Voit poistaa niitä tarvittaessa
+Voit poistaa niitä tarvittaessa.

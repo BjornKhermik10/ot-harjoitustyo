@@ -355,17 +355,19 @@ class UI:
             list_frame.pack(pady=(0, 14))
 
             for entry in entries:
-                entry_row = Frame(
+                entry_row = ctk.CTkFrame(
                     list_frame,
-                    bg="#FFF8D6",
-                    highlightbackground="#E5DFC5",
-                    highlightthickness=1,
-                    padx=10,
-                    pady=10,
+                    fg_color="#FFF8D6",
+                    corner_radius=8,
+                    border_color="#0F0099",
+                    border_width=2,
                 )
-                entry_row.pack(fill="x", pady=(0, 10))
-
-                text_frame = Frame(entry_row, bg="#FFF8D6")
+                entry_row.pack(fill="x", pady=(0, 10), padx=0)
+                
+                # Inner frame for padding
+                inner_frame = Frame(entry_row, bg="#FFF8D6")
+                inner_frame.pack(fill="both", expand=True, padx=10, pady=10)                
+                text_frame = Frame(inner_frame, bg="#FFF8D6")
                 text_frame.pack(side="left", fill="both", expand=True)
 
                 created_at = entry.get("created_at", "Unknown date")
@@ -419,7 +421,7 @@ class UI:
                         )
 
                 delete_button = ctk.CTkButton(
-                    entry_row,
+                    inner_frame,
                     text="Delete",
                     text_color="#FFFFFF",
                     corner_radius=8,
@@ -429,7 +431,7 @@ class UI:
                     width=110,
                     command=handle_delete,
                 )
-                delete_button.pack(side="right", padx=(10, 0), pady=(4, 0), anchor="n")
+                delete_button.pack(side="right", padx=(10, 0), pady=(0, 0), anchor="center")
 
         back_button = ctk.CTkButton(
             content,
