@@ -70,6 +70,35 @@ sequenceDiagram
     UserService-->>UI: true / false
 ```
 
+Uuden käyttäjän luominen
+
+```mermaid
+sequenceDiagram
+    actor Käyttäjä
+    participant UI
+    participant UserService
+    participant UserRepository
+    participant Database
+
+    Käyttäjä->>UI: Syöttää käyttäjätunnuksen ja salasanan
+    Käyttäjä->>UI: Painaa CREATE ACCOUNT
+    UI->>UserService: register(username, password)
+    UserService->>UserRepository: find_by_username(username)
+    UserRepository->>Database: Hae käyttäjä rivinä
+    Database-->>UserRepository: Käyttäjä tai ei löytynyt
+    UserRepository-->>UserService: user / None
+    alt Käyttäjä löytyi
+        UserService-->>UI: false (käyttäjä jo olemassa)
+    else Käyttäjä ei löytynyt
+        UserService->>UserRepository: create(username, password_hash)
+        UserRepository->>Database: Tallenna uusi käyttäjä
+        Database-->>UserRepository: Käyttäjä tallennettu
+        UserRepository-->>UserService: true
+        UserService-->>UI: true
+    end
+    UI-->>Käyttäjä: Näytä onnistumis- tai virheviesti
+```
+
 Päiväkirjamerkinnän luomisen sekvenssikaavio
 
 ```mermaid
