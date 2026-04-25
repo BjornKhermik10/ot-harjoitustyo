@@ -69,3 +69,26 @@ sequenceDiagram
     UserRepository-->>UserService: user / None
     UserService-->>UI: true / false
 ```
+
+Päiväkirjamerkinnän luomisen sekvenssikaavio
+
+```mermaid
+sequenceDiagram
+    actor Käyttäjä
+    participant UI
+    participant UserService
+    participant EntryRepository
+    participant Database
+
+    Käyttäjä->>UI: Kirjoittaa tekstin päivän "promptin" avulla
+    Käyttäjä->>UI: Painaa Preview
+    Käyttäjä->>UI: Syöttää otsikon / tarkistaa oikein kirjotuksen
+    Käyttäjä->>UI: Painaa Publish
+    UI->>UserService: add_entry(username, prompt, content, title)
+    UserService->>EntryRepository: create_entry(user_id, prompt, content, title)
+    EntryRepository->>Database: Tallenna merkintä riviksi
+    Database-->>EntryRepository: Merkintä tallennettu
+    EntryRepository-->>UserService: true / false
+    UserService-->>UI: true / false
+    UI-->>Käyttäjä: Näytä onnistumisviesti
+```
