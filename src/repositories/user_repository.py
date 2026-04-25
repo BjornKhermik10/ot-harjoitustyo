@@ -7,6 +7,7 @@ class UserRepository:
     """Encapsulates SQL operations related to users."""
 
     def __init__(self, connection):
+        """Initialize repository with a database connection."""
         self._connection = connection
 
     def create(self, username, password_hash):

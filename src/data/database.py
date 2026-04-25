@@ -7,6 +7,7 @@ class Database:
     """Handles SQLite connections and schema initialization."""
 
     def __init__(self, db_path=":memory:"):
+        """Initialize database with the specified path. Defaults to in-memory database."""
         if db_path == ":memory:":
             self._db_path = db_path
         else:
@@ -22,7 +23,7 @@ class Database:
 
 
 def initialize_database(connection):
-    """Creates required tables if they do not exist."""
+    """Create database tables for users and entries if they do not exist."""
     connection.executescript(
         """
         CREATE TABLE IF NOT EXISTS users (

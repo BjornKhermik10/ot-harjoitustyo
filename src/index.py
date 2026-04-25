@@ -9,6 +9,7 @@ from ui.ui import UI
 
 
 def main():
+    """Initialize and run the Dear Diary application with database and UI components."""
     window = Tk()
     window.title("Dear Diary")
 

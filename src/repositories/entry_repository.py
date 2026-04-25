@@ -5,6 +5,7 @@ class EntryRepository:
     """Encapsulates SQL operations related to diary entries."""
 
     def __init__(self, connection):
+        """Initialize repository with a database connection."""
         self._connection = connection
 
     def create(self, user_id, prompt, content, title=None):
