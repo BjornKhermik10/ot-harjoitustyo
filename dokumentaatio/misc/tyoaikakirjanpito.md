@@ -12,6 +12,4 @@
 | 21.4  |  3 | clean up and dokumentation updates, github release | 
 | 25.4  |  7 | Big change to database, added title everywhere where needed for entry, new preview page, some small visual tweeks to my_entry page, sequence graph added also, | 
 |   4.5-5.5    |  7   | Cleanup, viewpage, titlefix, documentation, release | 
-|       |     | | 
-|       |     | | 
 | AllHours:   | 60.5| |
