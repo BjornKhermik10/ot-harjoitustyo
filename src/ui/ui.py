@@ -2,7 +2,7 @@
 
 from pathlib import Path
 from datetime import datetime
-from tkinter import Text, Tk, Frame, Label, Entry, PhotoImage, messagebox
+from tkinter import Text, Tk, Frame, Label, Entry, PhotoImage, messagebox, StringVar
 import customtkinter as ctk
 
 class UI:
@@ -312,6 +312,19 @@ class UI:
         )
         daily_prompt.pack(pady=6)
 
+        log_out = ctk.CTkButton(
+            content,
+            text="Log Out",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#0F0099",
+            hover_color="#171151",
+            font=("Arial", 20, "bold"),
+            width=220,
+            command=self._logout,
+        )
+        log_out.pack(pady=6)
+
     def _open_my_entries(self):
         """Shows my-entries view"""
         self._clear_view()
@@ -419,6 +432,22 @@ class UI:
                             "Delete entry",
                             "Could not delete the selected entry.",
                         )
+
+                def handle_view(entry_id=entry.get("id")):
+                    self._open_view_entry(entry_id)
+
+                view_button = ctk.CTkButton(
+                    inner_frame,
+                    text="View",
+                    text_color="#FFFFFF",
+                    corner_radius=8,
+                    fg_color="#0F0099",
+                    hover_color="#171151",
+                    font=("Arial", 14, "bold"),
+                    width=110,
+                    command=handle_view,
+                )
+                view_button.pack(side="left", padx=(0, 10), pady=(0, 0), anchor="center")
 
                 delete_button = ctk.CTkButton(
                     inner_frame,
@@ -547,7 +576,15 @@ class UI:
         title_label = ctk.CTkLabel(
             title_row, text="Title:", font=("Arial", 12, "bold"), text_color="#0F0099")
         title_label.pack(side="left", padx=(0, 10))
-        title_entry = Entry(title_row, font=("Arial", 14), width=40)
+        
+        # Limit title to 23 characters to prevent overflow in the entry list view
+        title_var = StringVar()
+        def on_title_change(*args):
+            if len(title_var.get()) > 23:
+                title_var.set(title_var.get()[:23])
+        title_var.trace("w", on_title_change)
+        
+        title_entry = Entry(title_row, font=("Arial", 14), width=40, textvariable=title_var)
         title_entry.pack(side="left")
 
         current_date = datetime.now().strftime("%d / %m / %Y")
@@ -618,9 +655,129 @@ class UI:
         )
         back_button.pack(side="left")
     
+    def _open_view_entry(self, entry_id):
+        """Shows a view page for reading an entry without editing."""
+        entry = self._user_service.get_entry_by_id(self._current_user, entry_id)
+        
+        if not entry:
+            messagebox.showerror("View entry", "Entry not found.")
+            return
+        
+        self._clear_view()
+
+        self._main_view = Frame(
+            self._root, padx=self._view_padx, pady=self._view_pady, bg="#FEFBE7")
+        self._main_view.pack(fill="both", expand=True)
+
+        content = self._create_centered_group()
+
+        title = ctk.CTkLabel(content, text="VIEW ENTRY", font=("Arial", 38, "bold"), text_color="#0F0099")
+        title.pack(pady=(0, 20))
+
+        form_frame = Frame(content, bg="#FEFBE7")
+        form_frame.pack(pady=(0, 10))
+
+        # Display Title
+        title_row = Frame(form_frame, bg="#FEFBE7")
+        title_row.pack(pady=(0, 10))
+        title_label = ctk.CTkLabel(title_row, text="Title:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        title_label.pack(side="left", padx=(0, 10))
+        title_display = ctk.CTkLabel(
+            title_row, text=entry.get("title", ""), font=("Arial", 12), text_color="#171151")
+        title_display.pack(side="left")
+
+        # Display Day
+        created_at = entry.get("created_at", "Unknown date")
+        date_part = created_at.split()[0]
+        year, month, day = date_part.split("-")
+        formatted_date = f"{day} / {month} / {year}"
+        
+        date_row = Frame(form_frame, bg="#FEFBE7")
+        date_row.pack(pady=(0, 10))
+        date_label = ctk.CTkLabel(
+            date_row, text="Date:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        date_label.pack(side="left", padx=(0, 10))
+        date_display = ctk.CTkLabel(
+            date_row, text=formatted_date, font=("Arial", 12), text_color="#171151")
+        date_display.pack(side="left")
+
+        # Display Quote/Prompt
+        prompt_row = Frame(form_frame, bg="#FEFBE7")
+        prompt_row.pack(pady=(0, 10))
+        prompt_label = ctk.CTkLabel(
+            prompt_row, text="Prompt:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        prompt_label.pack(side="left", padx=(0, 10))
+        prompt_display = ctk.CTkLabel(
+            prompt_row, text=entry.get("prompt", ""), font=("Arial", 12), text_color="#171151")
+        prompt_display.pack(side="left")
+
+        # Display Entry content
+        content_label = ctk.CTkLabel(
+            form_frame, text="Content:", font=("Arial", 12, "bold"), text_color="#0F0099")
+        content_label.pack(anchor="w", pady=(10, 5))
+
+        content_display = Text(
+            form_frame, font=("Arial", 12), width=50, height=10, padx=10, pady=8, spacing3=6)
+        content_display.insert("1.0", entry.get("content", ""))
+        content_display.config(state="disabled")
+        content_display.pack()
+
+        button_row = Frame(content, bg="#FEFBE7")
+        button_row.pack(fill="x", pady=(15, 0))
+
+        def handle_delete():
+            if not messagebox.askyesno(
+                "Delete entry",
+                "Are you sure you want to delete this entry?",
+            ):
+                return
+
+            deleted = self._user_service.delete_entry_for_user(
+                self._current_user,
+                entry_id,
+            )
+            if deleted:
+                self._open_my_entries()
+            else:
+                messagebox.showerror(
+                    "Delete entry",
+                    "Could not delete the selected entry.",
+                )
+
+        delete_button = ctk.CTkButton(
+            button_row,
+            text="Delete",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#B00020",
+            hover_color="#7A0015",
+            font=("Arial", 16, "bold"),
+            width=150,
+            command=handle_delete,
+        )
+        delete_button.pack(side="right")
+
+        back_button = ctk.CTkButton(
+            button_row,
+            text="Back",
+            text_color="#FFFFFF",
+            corner_radius=8,
+            fg_color="#646466",
+            hover_color="#3A3A3A",
+            font=("Arial", 16, "bold"),
+            width=150,
+            command=lambda: self._open_my_entries(),
+        )
+        back_button.pack(side="left")
+    
     def _open_about(self):
         """Shows information about the application."""
         messagebox.showinfo(
             "About",
             "Dear Diary helps you keep your diary entries organized and inspires you with daily prompts."
         )
+
+    def _logout(self):
+        """Logs out the current user and returns to the main view."""
+        self._current_user = None
+        self._show_main_view()

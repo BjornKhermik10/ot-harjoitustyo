@@ -11,10 +11,15 @@ Käyttöliittymään kuuluu 4 näkymää toistaiseksi:
 - Daily prompt page
 - my entries page
 
+## Tietojen pysyväistallennus
+- Sovellus tallettaa tiedot locaaliin tietokantaan pysyvästi. (Entry'jä voi poistaa toki, käyttäjää ei)
+- Nämä tiedot menevät app.db tiedostoon
+
 ## Sovelluslogiikka
 Sovellukseen on nyt lisätty tietokanta sqlite3, jossa on käyttäjät ja "journal entries"
 
-Sovelluksen tietomallin muodostavat luokat
+Sovelluksen tietomallin muodostavat luokat:
+Sovelluksessa On käyttäjiä joilla on id, nimi ja salasana. Näillä käyttäjillä on sitten päiväkirjamerkintöjä/entry'jä, joilla on taas id, user_id, prompti, sisältö ja luomis ajankohta.
 
 ```mermaid
     classDiagram
@@ -34,7 +39,7 @@ Sovelluksen tietomallin muodostavat luokat
         created_at
     }
 ```
-ohjelman osien suhdetta kuvaava kaavio
+ohjelman osien suhdetta kuvaava kaavio: 
 
 ```mermaid
 classDiagram
@@ -50,7 +55,8 @@ classDiagram
     class EntryRepository
     class Database
 ```
-Kirjautumisen sekvenssikaavio
+Kirjautumisen sekvenssikaavio:
+Kaaviossa näkyy mitä tapahtuu komentokohtaisesti.
 
 ```mermaid
 sequenceDiagram
@@ -70,7 +76,8 @@ sequenceDiagram
     UserService-->>UI: true / false
 ```
 
-Uuden käyttäjän luominen
+Uuden käyttäjän luominen:
+Kaaviossa näkyy mitä tapahtuu komentokohtaisesti.
 
 ```mermaid
 sequenceDiagram
@@ -96,6 +103,7 @@ sequenceDiagram
 ```
 
 Päiväkirjamerkinnän luomisen sekvenssikaavio
+Kaaviossa näkyy mitä tapahtuu komentokohtaisesti.
 
 ```mermaid
 sequenceDiagram

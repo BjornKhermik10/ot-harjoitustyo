@@ -13,4 +13,6 @@ Coverage-raportti luodaan komennolla:
 poetry run invoke coverage-report
 ```
 
-## Järjestelmätestaus
+## Testikattavuus
+
+- Testikattavuus tällä hetkellä 72%

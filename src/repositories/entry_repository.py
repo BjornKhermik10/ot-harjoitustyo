@@ -30,6 +30,19 @@ class EntryRepository:
         rows = cursor.fetchall()
         return [dict(row) for row in rows]
 
+    def find_by_id(self, entry_id, user_id):
+        """Returns a specific entry by ID if it belongs to the user."""
+        cursor = self._connection.execute(
+            """
+            SELECT id, prompt, content, title, created_at
+            FROM entries
+            WHERE id = ? AND user_id = ?
+            """,
+            (entry_id, user_id),
+        )
+        row = cursor.fetchone()
+        return dict(row) if row else None
+
     def delete_for_user(self, entry_id, user_id):
         """Deletes one entry owned by a user. Returns True when deleted."""
         cursor = self._connection.execute(

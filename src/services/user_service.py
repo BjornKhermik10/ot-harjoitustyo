@@ -88,6 +88,18 @@ class UserService:
 
         return self._entry_repository.find_for_user(user["id"])
 
+    def get_entry_by_id(self, username: str, entry_id: int):
+        """Returns a specific diary entry for a user."""
+        username = username.strip()
+        if not username:
+            return None
+
+        user = self._user_repository.find_by_username(username)
+        if not user:
+            return None
+
+        return self._entry_repository.find_by_id(entry_id, user["id"])
+
     def delete_entry_for_user(self, username: str, entry_id: int) -> bool:
         """Deletes one diary entry for a user and returns success"""
         username = username.strip()

@@ -2,15 +2,15 @@
 
 ## What the app is for
 
-The "Dear Diary" app is meant to work as a digital diary application. The app enables users to create an account, Write into your daily diary with the help/inspiration of a daily prompt to guide your thought. You can then explore your earlier diary entries. The app has an admin account that can change the daily prompt, controll accounts and even delete anyones entry if needed.
+The "Dear Diary" app is meant to work as a digital diary application. The app enables users to create an account, Write into your daily diary with the help/inspiration of a daily prompt to guide your thought. You can then explore your earlier diary entries.
 
 ## Users
 
-At the start of this project there is only going to be one user that is the "default/customer" user. The "Default User" can answer the daily prompt and view his earlier entries. Later on I intend to add an admin account with speacial pages and functionality to change data within the app.
+At the start of this project there is only going to be one user that is the "default/customer" user. The "Default User" can answer the prompt and view his earlier entries.
 
 ## UserInterface
 
-At the start I will focus on making the "Defaul User" pages that are at the bottom and later add the admin pages as seen in the photo below.
+At the start I will focus on making the "Defaul User" pages that are at the bottom.
 
 ![](../kuvat/Starting_pages.png)
 ![](../kuvat/Default_User_pages.png)
@@ -19,7 +19,7 @@ At the start I will focus on making the "Defaul User" pages that are at the bott
 
 StartingPage -> Login/SignUp/About -> MainPage -> 3 options 1.(About) 2.(My Entries) 3.(Daily prompt)
 
-## Starting (MVP) Functionality
+## Functionality
 
 ### Before Log-in
 
@@ -41,14 +41,14 @@ StartingPage -> Login/SignUp/About -> MainPage -> 3 options 1.(About) 2.(My Entr
   - Go back to the Main page. (DONE!)
   - Fill/type out the daily prompt. (DONE!)
   - Preview it before publishing it and add title. (DONE!)
-  - Can go back to edit the entry before publishing. (DONE!)
+  - Can go back to edit the entry before publishing (DONE!)
 - The User can go to My Entries page (DONE!)
   - To view all his previous entries in a list view (DONE!)
   - Go back to the Mainpage (DONE!)
 
 ## Information Storage
 
-- The User information will be stored in a SQLite3-database.
+- The User information will be stored in a SQLite3-database. (DONE!)
 
 ## Future Development ideas
 
